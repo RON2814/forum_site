@@ -41,3 +41,11 @@ Start the server
 ```bash
   python manage.py runserver
 ```
+
+To see changed from tailwind
+
+```bash
+  npm run build
+```
+
+This command will build the changed made in the code
