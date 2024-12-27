@@ -1,0 +1,13 @@
+{% extends '_base.html' %}
+
+{% block title %}
+  POSTS
+{% endblock %}
+
+{% block content %}
+  <h1 class="text-2xl font-bold">Posts</h1>
+  <div class="mt-4">
+    <a href="{% url 'create_post' %}" class="bg-green-500 text-white px-4 py-2 rounded-md">Create Post</a>
+  </div>
+  <div class="mt-4"></div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends '_base.html' %}
+
+{% block title %}
+  Login
+{% endblock %}
+
+{% block content %}
+  <h1 class="mb-4">Login</h1>
+  {% if error_message %}
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+      <strong class="font-bold">Ops!</strong>
+      <span class="block sm:inline">{{ error_message }}</span>
+    </div>
+  {% endif %}
+  <form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <div class="mb-4">
+      <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+      <input type="text" name="username" id="username" value="{{ form.username.value|default_if_none:'' }}" />
+      {% for error in form.username.errors %}
+        <span class="text-red-500 text-sm">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="mb-4">
+      <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+      <input type="password" name="password" id="password" />
+      {% for error in form.password.errors %}
+        <span class="text-red-500 text-sm">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="mb-4 flex items-center">
+      <input type="checkbox" name="remember_me" id="remember_me" />
+      <label for="remember_me" class="ml-2 text-sm text-gray-700">Remember me</label>
+    </div>
+    <button type="submit" class="button px-5">Login</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+        Forum
+      {% endblock %}
+    </title>
+
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}" />
+    {% endcompress %}
+  </head>
+
+  <body class="bg-lightBg">
+    <nav class="p-4 shadow-lg bg-[hsl(0,0%,90%)]">
+      <div class="container mx-auto flex justify-between">
+        <a href="{% url 'index' %}" class="font-bold">Forum</a>
+        <ul class="flex">
+          {% if user.is_authenticated %}
+            <li class="mx-2 relative">
+              <button id="dropdownButton" class="flex items-center">
+                {{ user.username }}
+                <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              <ul id="dropdownMenu" class="absolute right-0 mt-2 w-32 bg-white border rounded-md shadow-lg hidden">
+                <li>
+                  <form action="{% url 'logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="block px-4 py-2 hover:bg-red-100 w-full text-left">Logout</button>
+                  </form>
+                </li>
+              </ul>
+            </li>
+          {% else %}
+            <li class="mx-2">
+              <a href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="mx-2">
+              <a href="{% url 'register' %}">Register</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <main class="container mx-auto mt-4">
+      <div class="mx-4 lg:mx-32">
+        {% block content %}
+
+        {% endblock %}
+      </div>
+    </main>
+    {% compress js %}
+    <script src="{% static 'js/user-dropdown.js' %}"></script>
+    {% endcompress %}
+  </body>
+</html>

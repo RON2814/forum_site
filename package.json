@@ -1,0 +1,13 @@
+{
+  "name": "forum_site",
+  "version": "1.0.0",
+  "description": "This is a forum site that focuses on programmer to share the knowledge and guide other programmer.",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "build": "tailwindcss -i ./static/src/input.css -o ./static/src/output.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
