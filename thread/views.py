@@ -1,4 +1,4 @@
-from django.shortcuts import render, red
+from django.shortcuts import render, redirect
 from .models import Thread
 
 # Create your views here.
