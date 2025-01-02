@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',
-    'forums',
-    'posts',
-    'users',
+    'forum',
+    'post',
+    'thread',
+    'user',
     'moderation',
 ]
 

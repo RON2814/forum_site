@@ -2,9 +2,9 @@
 module.exports = {
   content: [
     "./templates/**/*.html",
-    "./forums/templates/**/*.html",
-    "./posts/templates/**/*.html",
-    "./users/templates/**/*.html",
+    "./forum/templates/**/*.html",
+    "./post/templates/**/*.html",
+    "./user/templates/**/*.html",
   ],
   theme: {
     extend: {

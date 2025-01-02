@@ -1,0 +1,24 @@
+{% extends '_base.html' %}
+
+{% block title %}
+  THREADS
+{% endblock %}
+
+{% block content %}
+  <h1 class="text-2xl font-bold">Threads</h1>
+  <div class="mt-4">
+    <a href="{% url 'create_thread' %}" class="bg-green-500 text-white px-4 py-2 rounded-md">Create Thread</a>
+  </div>
+  <div class="mt-4">
+    {% for thread in threads %}
+      <div class="flex mt-4 p-4 border border-gray-200 rounded-md">
+        <div>
+          <h2 class="text-xl font-bold">{{ thread.title }}</h2>
+          <p class="mt-2">{{ thread.body }}</p>
+          <p>{{ thread.created_by }}</p>
+        </div>
+        <a href="" class="bg-blue-500 text-white px-4 py-2 rounded-md">View Thread</a>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

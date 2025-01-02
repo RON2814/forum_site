@@ -6,9 +6,10 @@
 
 {% block content %}
   <div>
-    {% comment %}HEADER{% endcomment %}
     <h5>General Information</h5>
   </div>
   <h1 class="title">Welcome!</h1>
   <p class="text-red-800">hello this is a paragraph</p>
+  <a href="{% url 'create_thread' %}" class="btn">Create Post</a>
+  <a href="{% url 'thread_lists' %}" class="btn">View Thread</a>
 {% endblock %}
