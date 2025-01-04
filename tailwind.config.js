@@ -5,6 +5,7 @@ module.exports = {
     "./forum/templates/**/*.html",
     "./post/templates/**/*.html",
     "./user/templates/**/*.html",
+    "./thread/templates/**/*.html",
   ],
   theme: {
     extend: {

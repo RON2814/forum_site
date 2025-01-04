@@ -1,5 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import Forum
+from thread.models import Thread
 
-# Create your views here.
+
 def index(request):
-    return render(request, 'index.html')
+    forums = Forum.objects.all()
+    return render(request, 'index.html', {'forums': forums})
+
+
+def forum_detail(request, slug):
+    forum = get_object_or_404(Forum, slug=slug)
+    threads = Thread.objects.filter(forum=forum).order_by('-created_at')
+    return render(request, 'forum/forum_detail.html', {'forum': forum, 'threads': threads})

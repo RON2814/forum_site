@@ -1,0 +1,43 @@
+{% extends '_base.html' %}
+
+{% block title %}
+  {{ thread.title }}
+{% endblock %}
+
+{% block content %}
+  <a href="{% url 'threads_list' %}" class="btn">Back to threads</a>
+  <h1 class="text-2xl font-bold">{{ thread.title }}</h1>
+  <p class="mt-4">{{ thread.body }}</p>
+  <p class="mt-4">Created by: {{ thread.created_by }}</p>
+  <p class="mt-4">Created at: {{ thread.created_at }}</p>
+  <p class="mt-4">Updated at: {{ thread.updated_at }}</p>
+  {% if request.user == thread.created_by or request.user.is_staff %}
+    <a href="{% url 'edit_thread' thread.slug %}" class="btn">Edit</a>
+    <a href="{% url 'delete_thread' thread.slug %}" class="btn">Delete</a>
+  {% endif %}
+
+  <h2 class="mt-8">Comments</h2>
+  <ul class="mt-4">
+    {% for post in posts %}
+      <li class="mt-4 flex justify-between shadow-md border p-4">
+        <div class="">
+          <p>{{ post.body }}</p>
+          <p>by: {{ post.author }}</p>
+        </div>
+        <p>{{ post.updated_at }}</p>
+        {% comment %} {% if request.user == post.created_by or request.user.is_staff %}
+          <a href="{% url 'edit_post' post.id %}" class="btn">Edit</a>
+          <a href="{% url 'delete_post' post.id %}" class="btn">Delete</a>
+        {% endif %} {% endcomment %}
+      </li>
+    {% endfor %}
+  </ul>
+  <form action="{% url 'create_post' thread.slug %}" method="post" class="mt-4">
+    {% csrf_token %}
+    <div class="mb-4">
+      <label for="body" class="block text-sm font-medium text-gray-700">Comment</label>
+      <textarea name="body" id="body" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required></textarea>
+    </div>
+    <button type="submit" class="btn">Create comment</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,56 @@
+[
+  {
+    "model": "forum.forum",
+    "pk": 1,
+    "fields": {
+      "name": "General Discussion",
+      "description": "Talk about anything here.",
+      "slug": "general-discussion-1"
+    }
+  },
+  {
+    "model": "forum.forum",
+    "pk": 2,
+    "fields": {
+      "name": "Programming Help",
+      "description": "Get help with programming.",
+      "slug": "programming-help-2"
+    }
+  },
+  {
+    "model": "forum.forum",
+    "pk": 3,
+    "fields": {
+      "name": "Programming Ideas",
+      "description": "Discuss programming ideas.",
+      "slug": "programming-ideas-3"
+    }
+  },
+  {
+    "model": "forum.forum",
+    "pk": 4,
+    "fields": {
+      "name": "Out of topic",
+      "description": "Talk about anything not related to programming.",
+      "slug": "out-of-topic-4"
+    }
+  },
+  {
+    "model": "forum.forum",
+    "pk": 5,
+    "fields": {
+      "name": "Django Help",
+      "description": "Get help with Django.",
+      "slug": "django-help-5"
+    }
+  },
+  {
+    "model": "forum.forum",
+    "pk": 6,
+    "fields": {
+      "name": "New members",
+      "description": "Introduce yourself here.",
+      "slug": "new-members-6"
+    }
+  }
+]
