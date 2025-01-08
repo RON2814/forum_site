@@ -4,18 +4,28 @@ from post.models import Post
 from forum.models import Forum
 from django.utils.text import slugify
 from django.http import Http404
+from django.db.models import Count
 
 # Create your views here.
 
 
 def threads_list(request):
-    threads = Thread.objects.all().order_by('-created_at')
-    return render(request, 'threads/threads_list.html', {'threads': threads})
+    threads = Thread.objects.annotate(
+        post_count=Count('posts')).order_by('-created_at')
+    forums = Forum.objects.all()
+    latest_posts = {}
+    for forum in forums:
+        latest_post = Post.objects.filter(
+            thread__forum=forum).order_by('-created_at').first()
+        latest_posts[forum.id] = latest_post
+    return render(request, 'threads/threads_list.html', {'threads': threads, 'latest_posts': latest_posts})
 
 
 def thread_page(request, slug):
     try:
         thread = get_object_or_404(Thread, slug=slug)
+        thread.views += 1
+        thread.save()
         posts = Post.objects.filter(thread=thread).order_by('created_at')
     except Thread.DoesNotExist:
         raise Http404("Thread does not exist")

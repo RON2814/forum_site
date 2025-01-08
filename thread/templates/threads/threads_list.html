@@ -5,18 +5,45 @@
 {% endblock %}
 
 {% block content %}
-  <h1 class="text-2xl font-bold">Threads</h1>
-  <div class="mt-4">
-    <a href="{% url 'create_thread' %}" class="btn">Create Thread</a>
-  </div>
-  <div class="mt-4">
-    {% for thread in threads %}
-      <div class="flex mt-4 p-4 border border-gray-200 rounded-md">
-        <div>
-          <a href="{% url 'thread_page' slug=thread.slug %}"><h2 class="text-xl font-bold">{{ thread.title }}</h2></a>
-          <p>{{ thread.created_by }}</p>
-        </div>
+  {% load dict_extras %}
+  <div class="container">
+    <!-- Navigation -->
+    <div class="navigate">
+      <span><a href="{% url 'index' %}">Progrum - Forums</a> >> <a href="">random subforum</a></span>
+    </div>
+    <!-- Display posts table -->
+    <div class="posts-table">
+      <div class="table-head">
+        <div class="status">Status</div>
+        <div class="subjects">Subjects</div>
+        <div class="replies">Replies/Views</div>
+        <div class="last-reply">Last Reply</div>
       </div>
-    {% endfor %}
+      {% for thread in threads %}
+        <div class="table-row">
+          <div class="status">
+            <i class="fa fa-fire"></i>
+          </div>
+          <div class="subjects">
+            <a href="{% url 'thread_page' slug=thread.slug %}">{{ thread.title }}</a>
+            <br />
+            <span>Started by <b>{{ thread.created_by }}</b> .</span>
+          </div>
+          <div class="replies">
+            {{ thread.post_count }} replies <br /> {{ thread.views }} views
+          </div>
+
+          <div class="last-reply">
+            {% with latest_post=latest_posts|dict_get:thread.forum.id %}
+              {% if latest_post %}
+                {{ latest_post.created_at|date:'d M Y' }} <br /> By <b>{{ latest_post.author }}</b>
+              {% else %}
+                <p>No posts yet.</p>
+              {% endif %}
+            {% endwith %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
 {% endblock %}

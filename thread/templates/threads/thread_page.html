@@ -5,39 +5,67 @@
 {% endblock %}
 
 {% block content %}
-  <a href="{% url 'threads_list' %}" class="btn">Back to threads</a>
-  <h1 class="text-2xl font-bold">{{ thread.title }}</h1>
-  <p class="mt-4">{{ thread.body }}</p>
-  <p class="mt-4">Created by: {{ thread.created_by }}</p>
-  <p class="mt-4">Created at: {{ thread.created_at }}</p>
-  <p class="mt-4">Updated at: {{ thread.updated_at }}</p>
-  {% if request.user == thread.created_by or request.user.is_staff %}
-    <a href="{% url 'edit_thread' thread.slug %}" class="btn">Edit</a>
-    <a href="{% url 'delete_thread' thread.slug %}" class="btn">Delete</a>
-  {% endif %}
-
-  <h2 class="mt-8">Comments</h2>
-  <ul class="mt-4">
-    {% for post in posts %}
-      <li class="mt-4 flex justify-between shadow-md border p-4">
-        <div class="">
-          <p>{{ post.body }}</p>
-          <p>by: {{ post.author }}</p>
-        </div>
-        <p>{{ post.updated_at }}</p>
-        {% comment %} {% if request.user == post.created_by or request.user.is_staff %}
-          <a href="{% url 'edit_post' post.id %}" class="btn">Edit</a>
-          <a href="{% url 'delete_post' post.id %}" class="btn">Delete</a>
-        {% endif %} {% endcomment %}
-      </li>
-    {% endfor %}
-  </ul>
-  <form action="{% url 'create_post' thread.slug %}" method="post" class="mt-4">
-    {% csrf_token %}
-    <div class="mb-4">
-      <label for="body" class="block text-sm font-medium text-gray-700">Comment</label>
-      <textarea name="body" id="body" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required></textarea>
+  <div class="container">
+    <!-- Navigation -->
+    <div class="navigate">
+      <span><a href="{% url 'index' %}">Progrum - Forums</a> >> <a href="{% url 'forum_detail' thread.forum.slug %}">{{ thread.forum.name }}</a> >> <a href="">{{ thread.title }}</a></span>
     </div>
-    <button type="submit" class="btn">Create comment</button>
-  </form>
+
+    <!-- Topic Section -->
+    <div class="topic-container">
+      <!-- Original thread -->
+      <div class="head">
+        <div class="authors">Author</div>
+        <div class="content">Topic: {{ thread.title }}</div>
+      </div>
+
+      <div class="body">
+        <div class="authors">
+          <div class="username">
+            <a href="">{{ thread.created_by }}</a>
+          </div>
+          <div>Role</div>
+          <img src="https://cdn.pixabay.com/photo/2015/11/06/13/27/ninja-1027877_960_720.jpg" alt="" />
+          <div>
+            Posts: <u>45</u>
+          </div>
+          <div>
+            Points: <u>4586</u>
+          </div>
+        </div>
+        <div class="content">{{ thread.body }}</div>
+      </div>
+    </div>
+
+    <!-- Comment Area -->
+    <div class="comment-area hide" id="comment-area">
+      <textarea name="comment" id="" placeholder="comment here ... "></textarea>
+      <input type="submit" value="submit" />
+    </div>
+
+    <h2 class="mt-8">Comments</h2>
+    <!-- Comments Section -->
+    {% for post in posts %}
+      <div class="comments-container">
+        <div class="body">
+          <div class="authors">
+            <div class="username">
+              <a href="">{{ post.author }}</a>
+            </div>
+            <div>Role</div>
+            <img src="https://cdn.pixabay.com/photo/2015/11/06/13/27/ninja-1027877_960_720.jpg" alt="" />
+          </div>
+          <div class="content">{{ post.body }}</div>
+        </div>
+      </div>
+    {% endfor %}
+    <form action="{% url 'create_post' thread.slug %}" method="post" class="mt-4">
+      {% csrf_token %}
+      <div class="mb-4">
+        <label for="body" class="block text-sm font-medium text-gray-700">Comment</label>
+        <textarea name="body" id="body" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required></textarea>
+      </div>
+      <button type="submit" class="btn">Create comment</button>
+    </form>
+  </div>
 {% endblock %}

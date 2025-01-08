@@ -1,0 +1,484 @@
+/* ########################################### */
+/*                 Global                      */
+/* ########################################### */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+html {
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  background-color: rgb(233, 233, 233);
+  color: #111314;
+}
+a {
+  color: #4a90e2;
+  font-weight: bolder;
+  text-decoration: none;
+}
+h1 {
+  font-size: 16px;
+  font-weight: bolder;
+  color: #ffffff;
+  margin-left: 0.5rem;
+}
+/* ########################################### */
+/*           Forums.html                       */
+/* ########################################### */
+.container {
+  margin: 20px;
+  padding: 20px;
+}
+.subforum {
+  margin-top: 20px;
+}
+.subforum-title {
+  background-color: #4a90e2;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 4px;
+}
+.subforum-row {
+  display: grid;
+  grid-template-columns: 7% 60% 13% 20%;
+}
+.subforum-column {
+  padding: 10px;
+  margin: 4px;
+  border-radius: 5px;
+  background-color: #fafafa;
+}
+.subforum-description * {
+  margin-block: 0;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.subforum-icon i {
+  font-size: 45px;
+}
+.subforum-devider {
+  display: none;
+}
+/* For the smartphones */
+@media screen and (max-width: 460px) {
+  .container {
+    margin: 2px;
+    padding: 2px;
+  }
+  .subforum-row {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 65% 35%;
+  }
+  .subforum-devider {
+    display: block;
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(
+      to right,
+      rgba(190, 190, 190, 0),
+      rgba(255, 255, 255, 0.75),
+      rgba(190, 190, 190, 0)
+    );
+  }
+
+  .navbar {
+    flex-direction: column; /* Stack elements vertically */
+    padding: 10px;
+  }
+  .navigation {
+    width: 100%; /* Full width for mobile view */
+    padding: 10px; /* Adjust padding */
+    max-height: none; /* Allow full content */
+    border-radius: 0; /* Remove border-radius for cleaner layout */
+    display: none; /* Hidden by default */
+    flex-direction: column; /* Stack items vertically */
+    gap: 10px;
+    position: absolute; /* Make the navigation menu a dropdown */
+    top: 60px; /* Position below the navbar */
+    left: 0;
+    background-color: #4a90e2; /* Same background color */
+    z-index: 1000;
+  }
+  .navigation.show {
+    display: flex; /* Show navigation on toggle */
+  }
+  .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.8rem;
+  }
+  .nav-list {
+    flex-direction: column; /* Stack nav items */
+    align-items: center; /* Center align nav items */
+    gap: 15px; /* Increase spacing between items */
+  }
+  .nav-item a {
+    font-size: 1.2rem; /* Adjust font size for smaller screens */
+  }
+  .hamburger {
+    display: flex; /* Show hamburger icon on mobile */
+    font-size: 2rem;
+    cursor: pointer;
+    color: #4a90e2; /* Matching color */
+    align-items: center;
+    justify-content: center;
+  }
+}
+/* For the tablets */
+@media screen and (min-width: 460px) and (max-width: 1024px) {
+  .container {
+    margin: 15px;
+    padding: 15px;
+  }
+  .subforum-row {
+    display: grid;
+    grid-template-columns: 10% 60% 10% 20%;
+  }
+  .subforum-icon i {
+    font-size: 35px;
+  }
+  html {
+    font-size: 14px;
+  }
+  h1 {
+    font-size: 16px;
+  }
+}
+/*   Header Section    */
+header {
+  margin-inline: 10px;
+}
+/* Nav Bar styles */
+.navbar {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  border-radius: 1rem;
+}
+.navigation {
+  background-color: #4a90e2;
+  padding: 20px; /* Increased padding for better spacing */
+  width: 25%;
+  border-radius: 5px;
+  margin-right: 10px;
+  max-height: 4.6rem;
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: space-between; /* Center items horizontally and add spacing between them */
+  position: relative; /* For positioning the close icon */
+}
+.close-icon {
+  display: flex;
+  align-items: center; /* Align icon vertically */
+  cursor: pointer;
+}
+.close-icon i {
+  font-size: 2rem;
+  color: #ffffff; /* White for visibility */
+}
+.nav-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Align list items horizontally */
+  gap: 15px; /* Space between nav items */
+}
+.nav-item a {
+  color: #ffffff; /* White text color */
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+.nav-item a:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.hide {
+  display: none;
+}
+.bar-icon {
+  font-size: 3rem;
+  display: inline-block;
+  margin-left: 2rem;
+  color: #4a90e2;
+  cursor: pointer;
+}
+@font-face {
+  font-family: aquire;
+  src: url(aquire.otf);
+}
+.brand {
+  font-size: 2rem;
+  display: inline-block;
+  margin-left: 1.5rem;
+  color: #4a90e2;
+  font-family: aquire;
+}
+/*Navbar for the smartphones*/
+@media screen and (max-width: 460px) {
+  .navigation {
+    max-height: auto;
+  }
+  .close-icon i {
+    font-size: 30px;
+  }
+  .nav-item a {
+    float: left;
+    display: inline;
+    margin-inline: 3px;
+    font-size: 10px;
+    padding: 5px;
+  }
+  .bar-icon {
+    font-size: 30px;
+  }
+  .brand {
+    font-size: 20px;
+  }
+}
+/* Search Box styles */
+.search-box select,
+.search-box input {
+  padding: 8px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  flex-grow: 1; /* Allow input to grow */
+  min-width: 0; /* Prevent content overflow */
+}
+.search-box select:focus,
+.search-box input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 4px rgba(74, 144, 226, 0.4);
+}
+.search-box button {
+  padding: 8px 10px;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  white-space: nowrap; /* Prevent button text from wrapping */
+}
+.search-box button:hover {
+  background-color: #357abd;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+.search-box button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+/* search box for smrtphones */
+@media (max-width: 768px) {
+  /* Example breakpoint */
+  .search-box > div {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: stretch; /* Stretch items to full width */
+    justify-content: center;
+  }
+  .search-box select,
+  .search-box input,
+  .search-box button {
+    width: 100%; /* Full width on smaller screens */
+    margin: 0.3125rem 0; /* Add some vertical margin */
+    margin-top: 1rem;
+    margin-left: 0.7678rem;
+    align-items: center;
+  }
+  .search-box {
+    width: 95%;
+  }
+}
+/* Position for larger screens (laptops/desktops) */
+@media (min-width: 769px) {
+  /* Example breakpoint - adjust as needed */
+  .search-box {
+    position: absolute; /* Or fixed, relative, etc., as needed */
+    top: 30px;
+    left: 71%;
+    width: 27%; /* Set width if needed */
+    margin: 0; /* Remove default margin */
+  }
+}
+/* forum info Styling */
+.forum-info {
+  padding: 20px;
+  background-color: #fafafa;
+}
+.chart {
+  font-size: 20px;
+  font-weight: bold;
+}
+/* Footer Styling */
+footer {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #4a90e2;
+  display: block;
+  text-align: center;
+}
+/* ########################################### */
+/*            posts.html                       */
+/* ########################################### */
+
+/* posts table's head  */
+.table-head {
+  display: flex;
+}
+.table-head div {
+  padding: 5px;
+  margin: 2px;
+  background-color: #4a90e2;
+  font-weight: bold;
+  color: #ffffff;
+}
+.table-head .status {
+  flex: 5%;
+}
+.table-head .subjects {
+  flex: 70%;
+}
+.table-head .replies {
+  flex: 10%;
+}
+.table-head .last-reply {
+  flex: 15%;
+}
+/* posts table's body  */
+.table-row {
+  display: flex;
+}
+.table-row .status,
+.table-row .subjects,
+.table-row .replies,
+.table-row .last-reply {
+  padding: 5px;
+  margin: 2px;
+  background-color: #fafafa;
+}
+.table-row .status {
+  flex: 5%;
+  font-size: 30px;
+  text-align: center;
+}
+.table-row .subjects {
+  flex: 70%;
+}
+.table-row .replies {
+  flex: 10%;
+}
+.table-row .last-reply {
+  flex: 15%;
+}
+/* navigation path*/
+.navigate {
+  margin-block: 20px;
+  font-weight: lighter;
+  font-size: 24px;
+  color: #4a90e2;
+}
+.navigate a {
+  color: #4a90e2;
+}
+.navigate a:hover {
+  color: #001aff;
+  font-weight: bolder;
+}
+/* Pagination*/
+.pagination {
+  padding: 20px;
+  font-size: 15px;
+}
+.pagination a {
+  color: #4a90e2;
+  margin-inline: 5px;
+  padding: 5px 10px;
+  border: solid 0.5px #4a90e2;
+}
+.pagination a:hover {
+  opacity: 0.5;
+}
+.note {
+  background-color: #fafafa;
+  padding: 20px;
+  display: block;
+}
+.note span {
+  font-size: 20px;
+  margin-block: 5px;
+}
+/* ########################################### */
+/*            detail.html                      */
+/* ########################################### */
+.head {
+  display: flex;
+  background-color: #4a90e2;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 15px;
+  color: #ffffff;
+}
+.authors {
+  flex: 20%;
+}
+.content {
+  flex: 80%;
+}
+.body {
+  display: flex;
+  background-color: #fafafa;
+  padding: 10px;
+  margin-top: 5px;
+}
+.body .authors .username {
+  font-size: 20px;
+}
+.body .authors img {
+  max-width: 50px;
+  max-height: 80px;
+}
+.body .content .comment button {
+  border: none;
+  padding: 10px;
+  font-weight: bolder;
+  box-shadow: 4px 6px #4a90e2;
+  cursor: pointer;
+  float: right;
+}
+/* comment section */
+.comment-area {
+  margin-bottom: 50px;
+}
+.comment-area textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  margin-block: 10px;
+}
+.comment-area input {
+  float: right;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.comment-area input:hover {
+  border: solid 1px #001aff;
+}
+
+.no-threads {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+}

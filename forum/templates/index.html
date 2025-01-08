@@ -5,17 +5,37 @@
 {% endblock %}
 
 {% block content %}
-  <div>
-    <h5>General Information</h5>
-    <div class="p-4 bg-gray-400">
+  {% load dict_extras %}
+  <div class="container">
+    <a href="{% url 'create_thread' %}" class="btn">Create Post</a>
+    <div class="subforum">
+      <div class="subforum-title">
+        <h1>General Information</h1>
+      </div>
       {% for forum in forums %}
-        <div class="">
-          <a href="{% url 'forum_detail' forum.slug %}" class="btn">{{ forum.name }}</a>
+        <div class="subforum-row">
+          <div class="subforum-icon subforum-column center">
+            <i class="fa-solid fa-info-circle"></i>
+          </div>
+          <div class="subforum-description subforum-column">
+            <h4><a href="{% url 'forum_detail' forum.slug %}">{{ forum.name }}</a></h4>
+            <p>{{ forum.description }}</p>
+          </div>
+          <div class="subforum-stats subforum-column center">
+            <span>{{ forum.post_count }} Posts | {{ forum.thread_count }} Topics</span>
+          </div>
+          <div class="subforum-info subforum-column">
+            {% with latest_post=latest_posts|dict_get:forum.id %}
+              {% if latest_post %}
+                <b><a href="{% url 'thread_page' latest_post.thread.slug %}">Last post</a></b> by <a href="#">{{ latest_post.author }}</a> <br />on
+                <small>{{ latest_post.created_at|date:'d M Y' }}</small>
+              {% else %}
+                <p>No posts yet.</p>
+              {% endif %}
+            {% endwith %}
+          </div>
         </div>
       {% endfor %}
     </div>
   </div>
-  <h1 class="title">Welcome!</h1>
-  <a href="{% url 'create_thread' %}" class="btn">Create Post</a>
-  <a href="{% url 'threads_list' %}" class="btn">View Thread</a>
 {% endblock %}
