@@ -23,49 +23,34 @@
   </head>
 
   <body class="">
-    <header>
-      <!-- NavBar Section -->
-      <div class="navbar">
-        <nav class="navigation hide" id="navigation">
-          <span class="close-icon" id="close-icon" onclick="showIconBar()"><i class="fa fa-close"></i></span>
-          <ul class="nav-list">
-            <li class="nav-item">
-              <a href="{% url 'index' %}">Forums</a>
-            </li>
-            <li class="nav-item">
-              <a href="{% url 'threads_list' %}">Threads</a>
-            </li>
-            <li class="nav-item">
-              <a href="{% url 'create_thread' %}">Create new Thread</a>
-            </li>
-          </ul>
-        </nav>
-        <a class="bar-icon" id="iconBar" onclick="hideIconBar()"><i class="fa fa-bars"></i></a>
-        <div class="brand">Progrum</div>
-      </div>
-      <!-- SearchBox Section -->
-      <!--          <div class="search-box">
-        <div>
-          <select name="" id="">
-            <option value="Everything">Everything</option>
-            <option value="Titles">Titles</option>
-            <option value="Descriptions">Descriptions</option>
-          </select>
-          <input type="text" name="q" placeholder="search ..." />
-          <button><i class="fa fa-search"></i></button>
-        </div>
-      </div>          -->
-      <!-- no time to implement -->
-      <ul class="search-box flex">
+    <header class="navbar bg-white rounded-lg shadow-lg p-4 flex justify-between items-center">
+      <!-- Left Section: System Name and Navigation Links -->
+      <nav class="flex items-center space-x-6">
+        <span class="system-name font-bold text-lg text-blue-700">PROGRUM</span>
+        <ul class="flex space-x-6">
+          <li class="nav-item">
+            <a href="{% url 'index' %}" class="hover:text-gray-600">Forums</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'threads_list' %}" class="hover:text-gray-600">Threads</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'create_thread' %}" class="hover:text-gray-600">Create New Thread</a>
+          </li>
+        </ul>
+      </nav>
+    
+      <!-- Right Section: Login and Register Links -->
+      <ul class="auth-links flex items-center space-x-4">
         {% if user.is_authenticated %}
-          <li class="mx-2 relative">
+          <li>
             <button id="dropdownButton" class="flex items-center">
               {{ user.username }}
               <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </button>
-            <ul id="dropdownMenu" class="absolute right-0 mt-2 w-32 bg-lightBg border rounded-md shadow-lg hidden">
+            <ul id="dropdownMenu" class="absolute right-0 mt-2 w-32 bg-white text-black border rounded-md shadow-lg hidden">
               <li>
                 <form action="{% url 'logout' %}" method="POST">
                   {% csrf_token %}
@@ -75,22 +60,24 @@
             </ul>
           </li>
         {% else %}
-          <li class="mx-2">
-            <a href="{% url 'login' %}">Login</a>
+          <li id="login-link">
+            <a href="{% url 'login' %}" class="btn-auth">Login</a>
           </li>
-          <li class="mx-2">
-            <a href="{% url 'register' %}">Register</a>
+          <li id="register-link">
+            <a href="{% url 'register' %}" class="btn-auth">Register</a>
           </li>
         {% endif %}
       </ul>
     </header>
+    
+
     <main class="container mx-auto mt-4">
       <div class="mx-4 lg:mx-32">
         {% block content %}
-
         {% endblock %}
       </div>
     </main>
+
     {% compress js %}
     <script src="{% static 'js/user-dropdown.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
