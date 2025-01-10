@@ -48,6 +48,6 @@
       {% endfor %}
     </div>
 
-    <a href="{% url 'create_thread' %}" class="btn">Create Thread</a>
+    <a href="{% url 'create_thread' forum_slug=forum.slug %}" class="btn">Create Thread</a>
   </div>
 {% endblock %}

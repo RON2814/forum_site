@@ -5,6 +5,7 @@ from forum.models import Forum
 from django.utils.text import slugify
 from django.http import Http404
 from django.db.models import Count
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -32,30 +33,36 @@ def thread_page(request, slug):
     return render(request, 'threads/thread_page.html', {'thread': thread, 'posts': posts})
 
 
-def create_thread(request):
+@login_required
+def create_thread(request, forum_slug=None):
+    if forum_slug:
+        forum = get_object_or_404(Forum, slug=forum_slug)
+    else:
+        forum = None
     forums = Forum.objects.all()
-    if not request.user.is_authenticated:
-        return redirect('login')
 
     if request.method == 'POST':
-        forum = Forum.objects.get(name=request.POST.get('forum'))
         title = request.POST.get('title')
         body = request.POST.get('body')
-        slug = slugify(title)
+        if forum:
+            selected_forum = forum
+        else:
+            forum_name = request.POST.get('forum')
+            selected_forum, created = Forum.objects.get_or_create(
+                name=forum_name, defaults={'description': 'No description'})
 
-        # Use id for slug uniqueness
         thread = Thread.objects.create(
-            forum=forum,
+            forum=selected_forum,
             title=title,
-            created_by=request.user,
             body=body,
-            slug=slug
+            created_by=request.user,
         )
-        thread.slug = f"{slug}-{thread.id}"
+        thread.slug = slugify(title) + '-' + str(thread.id)
         thread.save()
+
         return redirect('thread_page', slug=thread.slug)
 
-    return render(request, 'threads/create_thread.html', {'forums': forums})
+    return render(request, 'threads/create_thread.html', {'forum': forum, 'forums': forums})
 
 
 def edit_thread(request, slug):

@@ -52,5 +52,14 @@
       "description": "Introduce yourself here.",
       "slug": "new-members-6"
     }
+  },
+  {
+    "model": "forum.forum",
+    "pk": 7,
+    "fields": {
+      "name": "Announcement",
+      "description": "This forum is all about the updates or changes made in the forum. The Announcement.",
+      "slug": "annoucement-7"
+    }
   }
 ]

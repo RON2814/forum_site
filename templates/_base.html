@@ -35,11 +35,11 @@
             <a href="{% url 'threads_list' %}" class="hover:text-gray-600">Threads</a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'create_thread' %}" class="hover:text-gray-600">Create New Thread</a>
+            <a href="{% url 'create_thread_no_forum' %}" class="hover:text-gray-600">Create New Thread</a>
           </li>
         </ul>
       </nav>
-    
+
       <!-- Right Section: Login and Register Links -->
       <ul class="auth-links flex items-center space-x-4">
         {% if user.is_authenticated %}
@@ -69,11 +69,11 @@
         {% endif %}
       </ul>
     </header>
-    
 
     <main class="container mx-auto mt-4">
       <div class="mx-4 lg:mx-32">
         {% block content %}
+
         {% endblock %}
       </div>
     </main>
