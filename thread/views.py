@@ -42,7 +42,7 @@ def create_thread(request, forum_slug=None):
     forums = Forum.objects.all()
 
     if request.method == 'POST':
-        title = request.POST.get('title')
+        title = request.POST.get('title', '').lstrip()
         body = request.POST.get('body')
         if forum:
             selected_forum = forum

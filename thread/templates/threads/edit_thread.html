@@ -16,7 +16,7 @@
       <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
       <textarea name="body" id="body" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>{{ thread.body }}</textarea>
     </div>
-    <button type="submit" class="btn">Edit thread</button>
+    <button type="submit" class="btn mb-2">Edit thread</button>
     <a href="{% url 'thread_page' slug=thread.slug %}" class="btn">Cancel</a>
   </form>
 {% endblock %}

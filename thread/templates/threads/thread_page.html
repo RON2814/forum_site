@@ -5,58 +5,64 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-    <!-- Navigation -->
-    <div class="navigate">
-      <span><a href="{% url 'index' %}">Progrum - Forums</a> >> <a href="{% url 'forum_detail' thread.forum.slug %}">{{ thread.forum.name }}</a> >> <a href="">{{ thread.title }}</a></span>
+  <!-- Navigation -->
+  <div class="navigate">
+    <span><a href="{% url 'index' %}">Progrum - Forums</a> >> <a href="{% url 'forum_detail' thread.forum.slug %}">{{ thread.forum.name }}</a> >> <a href="">{{ thread.title }}</a></span>
+  </div>
+
+  <!-- Topic Section -->
+  <div class="topic-container">
+    <!-- Original thread -->
+    <div class="head">
+      <div class="authors my-auto">Author</div>
+      <div class="content my-auto pl-12">Topic: {{ thread.title }}</div>
+      <div class="flex space-x-2">
+        {% if user == thread.created_by or user.is_staff %}
+          <a href="{% url 'edit_thread' slug=thread.slug %}" class="btn"><i class="fa fa-edit"></i> Edit</a>
+        {% endif %}
+        {% if user.is_staff %}
+          <a href="{% url 'delete_thread' slug=thread.slug %}" class="btn btn-delete"><i class="fa fa-trash"></i> Delete</a>
+        {% endif %}
+      </div>
     </div>
 
-    <!-- Topic Section -->
-    <div class="topic-container">
-      <!-- Original thread -->
-      <div class="head">
-        <div class="authors">Author</div>
-        <div class="content">Topic: {{ thread.title }}</div>
+    <div class="body">
+      <div class="authors">
+        <div class="username">
+          <a href="">{{ thread.created_by }}</a>
+        </div>
+        <div>Role</div>
+        <img src="https://cdn.pixabay.com/photo/2015/11/06/13/27/ninja-1027877_960_720.jpg" alt="" />
+        <div>
+          Topics: <u>{{ thread.created_by.thread_set.count }}</u>
+        </div>
       </div>
+      <div class="content bg-slate-100 p-2">{{ thread.body }}</div>
+    </div>
+  </div>
 
+  <h2 class="mt-8">Comments</h2>
+  <!-- Comments Section -->
+  {% for post in posts %}
+    <div class="comments-container">
       <div class="body">
         <div class="authors">
           <div class="username">
-            <a href="">{{ thread.created_by }}</a>
+            <a href="">{{ post.author }}</a>
           </div>
           <div>Role</div>
           <img src="https://cdn.pixabay.com/photo/2015/11/06/13/27/ninja-1027877_960_720.jpg" alt="" />
-          <div>
-            Topics: <u>{{ thread.created_by.thread_set.count }}</u>
-          </div>
         </div>
-        <div class="content">{{ thread.body }}</div>
+        <div class="content bg-slate-100 p-2">{{ post.body }}</div>
       </div>
     </div>
-
-    <h2 class="mt-8">Comments</h2>
-    <!-- Comments Section -->
-    {% for post in posts %}
-      <div class="comments-container">
-        <div class="body">
-          <div class="authors">
-            <div class="username">
-              <a href="">{{ post.author }}</a>
-            </div>
-            <div>Role</div>
-            <img src="https://cdn.pixabay.com/photo/2015/11/06/13/27/ninja-1027877_960_720.jpg" alt="" />
-          </div>
-          <div class="content">{{ post.body }}</div>
-        </div>
-      </div>
-    {% endfor %}
-    <form action="{% url 'create_post' thread.slug %}" method="post" class="mt-4">
-      {% csrf_token %}
-      <div class="mb-4">
-        <label for="body" class="block text-sm font-medium text-gray-700">Comment</label>
-        <textarea name="body" id="body" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required></textarea>
-      </div>
-      <button type="submit" class="btn">Create comment</button>
-    </form>
-  </div>
+  {% endfor %}
+  <form action="{% url 'create_post' thread.slug %}" method="post" class="mt-4">
+    {% csrf_token %}
+    <div class="mb-4">
+      <label for="body" class="block text-sm font-medium text-gray-700">Comment</label>
+      <textarea name="body" id="body" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required></textarea>
+    </div>
+    <button type="submit" class="btn">Create comment</button>
+  </form>
 {% endblock %}

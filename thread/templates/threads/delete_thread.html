@@ -1,0 +1,19 @@
+{% extends '_base.html' %}
+
+{% block title %}
+  Delete Thread
+{% endblock %}
+
+{% block content %}
+  <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+    <h2 class="text-xl font-bold mb-4">Delete Thread</h2>
+    <p class="mb-6">Are you sure you want to delete this thread?</p>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="flex space-x-4">
+        <button type="submit" class="btn bg-red-500 hover:bg-red-600 text-white">Delete</button>
+        <a href="{% url 'thread_page' slug=thread.slug %}" class="btn bg-gray-500 hover:bg-gray-600 text-white">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}
