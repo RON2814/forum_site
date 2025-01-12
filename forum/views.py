@@ -7,8 +7,8 @@ from django.db.models import Max, Count
 
 def index(request):
     forums = Forum.objects.all().annotate(
-        thread_count=Count('threads'),
-        post_count=Count('threads__posts'),
+        thread_count=Count('threads', distinct=True),
+        post_count=Count('threads__posts', distinct=True),
         latest_post_time=Max('threads__posts__created_at')
     )
     latest_posts = {}
