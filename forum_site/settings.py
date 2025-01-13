@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'post',
     'thread',
     'user',
-    'moderation',
 ]
 
 MIDDLEWARE = [
