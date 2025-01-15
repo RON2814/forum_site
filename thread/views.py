@@ -33,8 +33,10 @@ def thread_page(request, slug):
     return render(request, 'threads/thread_page.html', {'thread': thread, 'posts': posts})
 
 
-@login_required
 def create_thread(request, forum_slug=None):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     if forum_slug:
         forum = get_object_or_404(Forum, slug=forum_slug)
     else:

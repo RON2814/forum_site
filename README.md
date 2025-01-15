@@ -33,7 +33,7 @@ Activate the Vitual Environment
 Install Django
 
 ```bash
-  pip install Django
+  pip install -r requirements.txt
 ```
 
 Start the server
